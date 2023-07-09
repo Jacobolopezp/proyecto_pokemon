@@ -1,0 +1,56 @@
+<button class="btn btn-success position-absolute" style="padding: 20px;" routerLink="login">Login</button>
+<router-outlet></router-outlet><br><br><br>
+<div class="container">
+  <div>
+    <img class="logo-img" src="../assets/Logo.png">
+  </div><br>
+  <div class="row-auto align-items-stretch row-cols-md-3 g-4 bg-dark text-light">
+    <div class="col-auto mx-auto formulario">
+      <div class="mb-3"><br>
+        <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="atr.nombre"/>
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Descripcion</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="atr.descripcion"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Peso</label>
+        <input type="number" class="form-control" id="exampleFormControlInput1" [(ngModel)]="atr.peso"/>
+      </div>
+      <label for="exampleDataList" class="form-label">Tipo</label>
+      <input class="form-control" list="datalistOptions" id="exampleDataList"  [(ngModel)]="atr.tipo"/><br>
+      <label for="exampleDataList" class="form-label">Imagen</label><br>
+      <input type="file" (change)="onFileChanged($event)"><br><br>
+      <div class="d-grid">
+      <button class="btn btn-custom01" type="button" (click)="alta()">Agregar</button>
+      <button class="btn btn-custom01" type="button" (click)="modificar()">Modificar</button>
+      </div>
+    </div>
+  </div><br>
+    <div class="row align-items-stretch row-cols-1 row-cols-md-3 g-4" *ngIf="hayRegistros(); else sinarticulos">
+    <div class="col-2" *ngFor="let atr of atributos">
+      <div class="card text-center text-bg-danger border-dark" style="width: 18rem">
+        <h5 class="card-title text-bg-dark">{{atr.nombre}}</h5>
+        <div *ngIf="selectedFile">
+          <img [src]="previewUrl" alt="Vista previa" style="width: 100px; height: 100px; display: block; margin: auto">
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{atr.descripcion}}</p>
+        </div>
+        <div class="card-body text-bg-dark">
+          <li class="list-group-item">Tipo: {{atr.tipo}} </li>
+          <li class="list-group-item">Peso: {{atr.peso}} Kg</li><br>
+        </div>
+      </div>
+      <div class="d-flex" style="padding-left: 40px">
+        <button class="btn btn-danger" type="button" (click)="seleccionar(atr.codigo)">Seleccionar</button>
+        <button class="btn btn-danger" type="button" (click)="baja(atr.codigo)">Borrar</button>
+      </div>
+    </div>
+  </div>
+  <ng-template #sinarticulos><p>No hay articulos.</p></ng-template>
+  </div>
+ 
+ 
+
